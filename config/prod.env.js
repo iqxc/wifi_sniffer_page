@@ -1,5 +1,6 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  productionSourceMap: true
+  productionSourceMap: true,
+  useEslint: false
 }
