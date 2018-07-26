@@ -53,7 +53,8 @@ const config = {
     extensions: ['.js', '.vue'],
     alias: {
       assets: join(__dirname, '../src/assets'),
-      components: join(__dirname, '../src/components')
+      components: join(__dirname, '../src/components'),
+      pages: join(__dirname, '../src/pages')
     }
   },
   module: {

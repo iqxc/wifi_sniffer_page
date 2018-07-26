@@ -4,7 +4,8 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 const prodWebpackConfig = merge(baseWebpackConfig, {
-  devtool: '#source-map',
+  // devtool: '#source-map',
+  devtool: '',
   plugins: [
     new OptimizeCSSPlugin()
   ]
