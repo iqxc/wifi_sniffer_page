@@ -2,7 +2,7 @@
   <div class="menu-container col-left">
     <ul ref="menu" class="menu-list">
       <li v-for="item in menus">
-        <div v-on:click="onClick(item.Id)" :class="{'menu-item': true, 'active': target==item.Id}">
+        <div v-on:click="onClick(item)" :class="{'menu-item': true, 'active': exists(item)}">
           <a>
             <h4>{{item.StationName}}（{{item.SiteName}}）</h4>
             <h5>{{item.Region}}</h5>
@@ -17,7 +17,7 @@ require('assets/css/style.css')
 export default {
   data() {
     return {
-      target: 0
+      sites: []
     }
   },
   props: {
@@ -27,12 +27,16 @@ export default {
     }
   },
   methods: {
-    onClick: function(e) {
-      var oldId = this.target;
-      this.target = e;
-      if (e != oldId) {
-        this.$emit('siteChanged', e, oldId);
+    onClick: function(s) {
+      if (this.sites.indexOf(s) >= 0) {
+        this.sites.splice(this.sites.indexOf(s), 1)
+      } else {
+        this.sites.push(s);
       }
+      this.$emit('siteChanged', this.sites)
+    },
+    exists: function(s) {
+      return this.sites.indexOf(s) >= 0
     }
   }
 }

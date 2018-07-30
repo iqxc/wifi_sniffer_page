@@ -3,7 +3,7 @@
     <site-header></site-header>
     <div class="row body">
       <site-menu :menus="menus" @siteChanged="siteChanged"></site-menu>
-      <site-body :site="site"></site-body>
+      <site-body :sites="sites"></site-body>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       menus: [{ SiteName: 'lw123', StationName: '重庆南路建国中路', Region: '黄浦区', Id: 1 }],
-      site: 0
+      sites: []
     }
   },
   mounted() {
@@ -31,12 +31,12 @@ export default {
     api.querySite({
       PageSize: 1000
     }, (res) => {
-      // this.menus = res.Site.filter((site) => { return site.SiteName != '' })
+      this.menus = res.Site.filter((site) => { return site.SiteName != '' })
     })
   },
   methods: {
-    siteChanged(id, oldId) {
-      this.site = id;
+    siteChanged(sites) {
+      this.sites = sites;
     }
   }
 }
