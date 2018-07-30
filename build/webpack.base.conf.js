@@ -54,7 +54,8 @@ const config = {
     alias: {
       assets: join(__dirname, '../src/assets'),
       components: join(__dirname, '../src/components'),
-      pages: join(__dirname, '../src/pages')
+      pages: join(__dirname, '../src/pages'),
+      modules: join(__dirname, '../src/modules')
     }
   },
   module: {
