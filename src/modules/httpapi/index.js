@@ -9,7 +9,7 @@
   const SignSecret = '6dbedf8ed753e5cc100200d15f669bcf4fe31abaf49bab8e260b2e2d0d80e472'
   const Format = 'json'
 
-  var request = (opts, callback) => {
+  var getRequestUrl = (opts) => {
     var buf = new Buffer(JSON.stringify(Object.assign(opts, {
       SignKey: SignKey,
       SignSecret: SignSecret,
@@ -17,10 +17,13 @@
     })));
     var host = 'bsm.ilinkin.com.cn'
     var port = 80
-    var url = 'http://' + HOST + ':' + PORT + '/thirdpart/?query=' + buf.toString('base64');
-    var resData = '';
+    return 'http://' + HOST + ':' + PORT + '/thirdpart/?query=' + buf.toString('base64');
+  }
 
-    http.get(url, function(res) {
+  var request = (opts, callback) => {
+
+    var resData = '';
+    http.get(getRequestUrl(opts), function(res) {
       res.on('data', function(chunk) {
         resData += chunk
       })
