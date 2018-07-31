@@ -6,6 +6,7 @@ const glob = require('glob')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const vendors = require('./vendors.json')
 
 const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
@@ -27,7 +28,8 @@ glob.sync('./src/pages/**/app.js').forEach(path => {
     inject: 'body',
     favicon: './src/assets/favicon.ico',
     hash: true,
-    chunks: ['commons', chunk]
+    chunks: ['commons', chunk],
+    vendors: vendors
   }
   htmlWebpackPluginArray.push(new HtmlWebpackPlugin(htmlConf))
 })
@@ -87,16 +89,16 @@ const config = {
           fallback: styleLoaderOptions
         }))
       },
-      {
-        test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: {
-            root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'link:href']
-          }
-        }]
-      },
+      // {
+      //   test: /\.html$/,
+      //   use: [{
+      //     loader: 'html-loader',
+      //     options: {
+      //       root: resolve(__dirname, 'src'),
+      //       attrs: ['img:src', 'link:href']
+      //     }
+      //   }]
+      // },
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         exclude: /favicon\.png$/,
@@ -127,7 +129,13 @@ const config = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    extractCSS
+    extractCSS,
+    new webpack.DllReferencePlugin({
+      manifest: require('./vendor-manifest.json')
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: require('./chartjs-manifest.json')
+    })
   ]
 }
 config.plugins = [...config.plugins, ...htmlWebpackPluginArray]

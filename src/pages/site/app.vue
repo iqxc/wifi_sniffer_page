@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      menus: [{ SiteName: 'lw123', StationName: '重庆南路建国中路', Region: '黄浦区', Id: 1 }],
+      menus: [],
       sites: []
     }
   },

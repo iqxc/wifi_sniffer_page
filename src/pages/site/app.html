@@ -19,7 +19,9 @@
 
 <body>
   <div id="app"></div>
-  <!-- built files will be auto injected -->
+  <% for(var key in htmlWebpackPlugin.options.vendors) {%>
+    <script type="text/javascript" src="/vendors/js/<%=htmlWebpackPlugin.options.vendors[key].js%>"></script>
+    <%}%>
 </body>
 
 </html>
